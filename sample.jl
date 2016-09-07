@@ -1,22 +1,15 @@
-using Plots
-pyplot(leg=false, ticks=nothing)
-x = y = linspace(-5, 5, 40)
-zs = zeros(0,40)
+using DSGE
 
-@gif for i in linspace(0, 2π, 100)
-    f(x,y) = sin(x + 10sin(i)) + cos(y)
+# construct a model object
+m = Model990()
 
-    # create a plot with 3 subplots and a custom layout
-    l = @layout [a{0.7w} b; c{0.2h}]
-    p = plot(x, y, f, st = [:surface, :contourf], layout=l)
+# estimate as of 2015-Q3 using the default data vintage from 2015 Nov 27
+m <= Setting(:data_vintage, "151127")
+m <= Setting(:date_mainsample_end, quartertodate("2015-Q3"))
 
-    # add a tracking line
-    fixed_x = zeros(40)
-    z = map(f,fixed_x,y)
-    plot!(p[1], fixed_x, y, z, line = (:black, 5, 0.2))
-    vline!(p[2], [0], line = (:black, 5))
+# reoptimize parameter vector, compute Hessian at mode, and full posterior
+# parameter sampling
+estimate(m)
 
-    # add to and show the tracked values over time
-    zs = vcat(zs, z')
-    plot!(p[3], zs, alpha = 0.2, palette = cgrad(:blues).colors)
-end
+# produce LaTeX tables of parameter moments
+compute_moments(m)
