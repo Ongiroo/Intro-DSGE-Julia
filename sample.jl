@@ -17,8 +17,8 @@ using DSGE
 m = SmetsWouters()
 
 # estimate as of 2015-Q3 using the default data vintage from 2015 Nov 27
-m <= Setting(:data_vintage, "2")
-m <= Setting(:date_mainsample_end, quartertodate("2015-Q3"))
+m <= Setting(:data_vintage, "1907116")
+m <= Setting(:date_mainsample_end, quartertodate("2016-Q3"))
 
 # reoptimize parameter vector, compute Hessian at mode, and full posterior
 # parameter sampling
