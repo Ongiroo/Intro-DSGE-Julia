@@ -14,7 +14,7 @@ Pkg.rm("Plots")
 using DSGE
 
 # construct a model object
-m = Model990()
+m = SmetsWouters()
 
 # estimate as of 2015-Q3 using the default data vintage from 2015 Nov 27
 m <= Setting(:data_vintage, "2")
