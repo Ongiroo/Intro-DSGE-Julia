@@ -6,10 +6,6 @@
 # Pkg.add("Optim")
 # Pkg.add("QuantEcon")
 # Pkg.add("Roots")
-Pkg.add("DSGE")
-Pkg.update()
-Pkg.status()
-Pkg.rm("Plots")
 # Pkg.clone(https://github.com/FRBNY-DSGE/DSGE.jl.git, Actors)
 using DSGE
 
